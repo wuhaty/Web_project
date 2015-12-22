@@ -22,6 +22,7 @@
 </head>
 
 <body class="index">
+
 	<div class="top">
 		<div class="nav_wrap">
 			<ul class="nav index_nav">
@@ -29,7 +30,7 @@
 					<img src="pic/logo2.png">
 				</div>
 				<li role="presentation" class="active"><a href="#">发现音乐</a></li>
-				<li role="presentation"><a href="#">我的音乐</a></li>
+				<li role="presentation"><s:a href="myMusic">我的音乐</s:a></li>
 				<li role="presentation"><a href="#">我的订单</a></li>
 				<s:if test="#session.userName==null">
 					<a data-toggle="modal" data-target="#registModal">注册</a>
@@ -69,6 +70,9 @@
 			data-slide="prev">&lsaquo;</a> <a
 			class="carousel-control right myslider" href="#myCarousel"
 			data-slide="next">&rsaquo;</a>
+	</div>
+
+	<div class="content">
 	</div>
 
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
