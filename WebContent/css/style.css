@@ -17,7 +17,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 .index .top{background: #343434;text-align: center;}
-.index .nav_wrap{width: 70%;margin: 0 auto;}
+.index .nav_wrap{width: 70%;margin: 0 auto;min-width: 1024px;}
 
 .index .top ul{background: #343434; height: 70px;}
 .index .top ul>.logo_wrap{float:left;display: inline;height:inherit;margin-right: 20px;}
@@ -30,6 +30,12 @@
 .index .top ul>a{outline: none;border: none; float: right;color: #787878;padding-left: 10px;margin-top: 25px;}
 .index .top ul>a.spliter:HOVER{color:#787878;cursor: default;}
 .index .top ul>a:hover{text-decoration:none; color:#ccc;cursor: pointer;}
+.index .top .usermenu>ul{height: 80px;padding-top: 0px;min-width: 115px;}
+.index .top .usermenu>ul>li{height: auto;border-radius:5px;min-width: inherit;}
+.index .top .usermenu>ul>li>a{line-height:39px;}
+.index .top .usermenu>ul>li:hover{background-color:#212121; }
+.index .top .usermenu>a:focus{background-color: #212121;}
+.index .top .open>a, .nav .open>a:focus, .nav .open>a:hover{background-color: #212121;}
 .index .modal-body input{width:50%;}
 .index .modal-body {background-image: url("../pic/logo_white.jpg");background-position: 94%; background-size:40% ;background-repeat: no-repeat;}
 

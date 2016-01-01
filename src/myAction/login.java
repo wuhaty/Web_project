@@ -2,16 +2,24 @@ package myAction;
 
 import java.util.Map;
 
+import javax.websocket.Session;
+
+import org.hibernate.Hibernate;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sun.net.httpserver.Authenticator.Failure;
+import myDAO.UserHome;
+import myModel.User;
 
 public class login extends ActionSupport{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private String userName;
+	private String userPwd;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -27,11 +35,14 @@ public class login extends ActionSupport{
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
-	private String userName;
-	private String userPwd;
 	
 	public String verify() {
-		if(userName.equals("Sia")&&userPwd.equals("123")){
+		UserHome userDAO=new UserHome();
+		User newUser=new User();
+		newUser.setUserName(userName);
+		newUser.setUserPwd(userPwd);
+		
+		if(userDAO.findByExample(newUser).size()!=0){
 			System.out.println(userName+":µÇÂ¼³É¹¦");
 			ActionContext actionContext = ActionContext.getContext();
 		    Map session = actionContext.getSession();
@@ -39,6 +50,7 @@ public class login extends ActionSupport{
 			return  SUCCESS;
 		}
 		System.out.println(userName+":µÇÂ¼Ê§°Ü");
+		
 		return LOGIN;
 	}
 	
@@ -46,6 +58,26 @@ public class login extends ActionSupport{
 		  ActionContext actionContext = ActionContext.getContext();
 	      Map session = actionContext.getSession();
 	      session.clear();
+	      return SUCCESS;
+	}
+	
+	public String modifyPwd() {
+		  ActionContext actionContext = ActionContext.getContext();
+	      Map session = actionContext.getSession();
+	      UserHome userDAO=new UserHome();
+	      User newUser=userDAO.findByUserName((String) session.get("userName"));
+	      newUser.setUserPwd(this.userPwd);
+	      System.out.println(newUser.getUserName()+'\n'+newUser.getUserPwd()+'\n'+newUser.getUserId());
+	      userDAO.merge(newUser);
+	      return SUCCESS;
+	}
+	
+	public String freeze() {
+		  ActionContext actionContext = ActionContext.getContext();
+	      Map session = actionContext.getSession();
+	      UserHome userDAO=new UserHome();
+	      User newUser=userDAO.findByUserName((String) session.get("userName"));
+	      userDAO.delete(newUser);
 	      return SUCCESS;
 	}
 }

@@ -10,4 +10,11 @@
 			<message>长度必须在6~10之间</message>
 		</field-validator>
 	</field>
+	
+	<field name="reuserPwd">
+		<field-validator type="fieldexpression">
+	 		<param name="expression"><![CDATA[userPwd == reuserPwd]]></param>
+			<message>两次密码输入不一致，请重新输入</message>
+		</field-validator>
+	</field>
 </validators>

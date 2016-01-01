@@ -26,6 +26,18 @@
 			</result>
 		</action>
 		
+		<action name="modifyPwd" class="myAction.login" method="modifyPwd">
+			<result name="success">
+				/jsp/index.jsp
+			</result>
+		</action>
+		
+		<action name="freeze" class="myAction.login" method="freeze">
+			<result name="success" type="redirectAction">
+				<param name="actionName">logout</param>  
+			</result>
+		</action>
+		
 		<action name="regist" class="myAction.regist" >
 			<result name="success" type="redirectAction">
 				<param name="actionName">login</param>  
