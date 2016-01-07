@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-1-1 14:39:37 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="myModel.User" table="user" catalog="acciomusic" optimistic-lock="version">
+        <id name="userId" type="java.lang.Integer">
+            <column name="userId" />
+            <generator class="identity" />
+        </id>
+        
+        <set name="albums" table="purchasehistory" lazy="false">
+         	<key column="UserId"/>
+         	<many-to-many class="myModel.Album" column="AlbumId"/>
+     	</set>
+     	
+        <property name="userName" type="string">
+            <column name="userName" not-null="true" />
+        </property>
+        <property name="userPwd" type="string">
+            <column name="userPwd" not-null="true" />
+        </property>
+        <property name="isAdmin" type="java.lang.Byte">
+            <column name="isAdmin" not-null="true" />
+        </property>
+    </class>
+        <sql-query name="findByUserName">
+        	<return alias="user" class="myModel.User"/>
+        	SELECT user.userId AS {user.userId},
+        		   user.userName AS {user.userName},
+        		   user.userPwd AS {user.userPwd},
+        		   user.isAdmin AS {user.isAdmin}
+        	FROM USER user
+        	WHERE user.userName LIKE :namePattern
+        </sql-query>
+</hibernate-mapping>

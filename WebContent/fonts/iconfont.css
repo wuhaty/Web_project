@@ -15,4 +15,5 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-search:before { content: "\e61b"; }
+.icon-erji:before { content: "\e601"; }
+.icon-yuan:before { content: "\e600"; }

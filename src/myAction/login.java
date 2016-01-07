@@ -41,16 +41,18 @@ public class login extends ActionSupport{
 		User newUser=new User();
 		newUser.setUserName(userName);
 		newUser.setUserPwd(userPwd);
-		
-		if(userDAO.findByExample(newUser).size()!=0){
-			System.out.println(userName+":µÇÂ¼³É¹¦");
+		if(!userDAO.findByExample(newUser).isEmpty()){
+			newUser=userDAO.findByExample(newUser).get(0);
 			ActionContext actionContext = ActionContext.getContext();
 		    Map session = actionContext.getSession();
 		    session.put("userName", userName);
-			return  SUCCESS;
+			if(newUser.getisAdmin()!=1){
+				return  SUCCESS;
+			}else{
+				return  "admin";
+			}
 		}
 		System.out.println(userName+":µÇÂ¼Ê§°Ü");
-		
 		return LOGIN;
 	}
 	

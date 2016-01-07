@@ -3,6 +3,7 @@
 <%@taglib uri="/struts-tags" prefix="s"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,46 +14,10 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/script.js"></script>
-
 </head>
 
-
-
 <body class="index">
-
-	<div class="top">
-		<div class="nav_wrap">
-			<ul class="nav index_nav">
-				<div class="logo_wrap">
-					<img src="pic/logo2.png">
-				</div>
-				<li role="presentation" class="active"><a href="#">发现音乐</a></li>
-				<li role="presentation"><s:a href="myMusic">我的音乐</s:a></li>
-				<li role="presentation"><a href="#">我的订单</a></li>
-				<s:if test="#session.userName==null">
-					<a data-toggle="modal" data-target="#registModal">注册</a>
-					<a class="spliter">|</a>
-					<a data-toggle="modal" data-target="#loginModal">登录</a>
-					<input type="text" placeholder="单曲/歌手/专辑">
-				</s:if>
-				<s:else>
-					<li style="float: right;"><s:a action="logout" namespace="/">退出</s:a> <a
-						class="spliter">|</a></li>
-					<li class="dropdown usermenu" style="float: right;cursor: pointer;">
-						<a class="dropdown-toggle"
-							data-toggle="dropdown">您好，<s:property
-									value="#session.userName" /> <b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu">
-							<li><a data-toggle="modal" data-target="#modifyModal">修改密码</a></li>
-							<li><a data-toggle="modal" data-target="#deleteModal">注销账户</a></li>
-						</ul>
-					</li>
-					<li style="float: right;padding-right: 20px"><input type="text" placeholder="单曲/歌手/专辑"></li>
-				</s:else>
-			</ul>
-		</div>
-	</div>
+	<%@ include file="/jsp/header.jsp" %>
 	<div id="myCarousel" class="carousel slide">
 		<!-- 轮播（Carousel）指标 -->
 		<ol class="carousel-indicators">
@@ -79,9 +44,58 @@
 			class="carousel-control right myslider" href="#myCarousel"
 			data-slide="next">&rsaquo;</a>
 	</div>
+	
+	
+	<div class="box_wrapper container">
+		<div class="col-md-12 music_recommond">
+			<div class="row recommond_title">
+				<div class="col-xs-12 title_wraper">
+					<s:a ><i class="iconfont">&#xe600;</i>热门推荐</s:a>
+				</div>
+			</div>
+			<div class="row albums">
+				<div class="col-md-3 album">
+					<div class="album_content">
+						<img  src="pic/albums/gwjd/gwjd.png">
+						<div class="bottom">
+						<i class="iconfont">&#xe601;</i>
+							<s:a href="">《歌舞伎町の女王》</s:a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 album">
+					<div class="album_content">
+						<img  src="pic/albums/ry/ry.png">
+						<div class="bottom">
+							<i class="iconfont">&#xe601;</i>
+							<s:a>《如也》</s:a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 album">
+					<div class="album_content">
+						<img  src="pic/albums/wq/wq.png">
+						<div class="bottom">
+							<i class="iconfont">&#xe601;</i>
+							<s:a>《万能青年旅店》</s:a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 album">
+					<div class="album_content">
+						<img  src="pic/albums/parachutes/parachute.png">
+						<div class="bottom">
+							<i class="iconfont">&#xe601;</i>
+							<s:a href="ShowAlbum">《Parachute》</s:a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 
-	<div class="content"></div>
-
+	
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -161,7 +175,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -195,8 +208,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">

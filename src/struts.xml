@@ -7,7 +7,7 @@
 	<constant name="struts.devMode" value="true" />
 		<package name="default" namespace="/" extends="struts-default">
 		 <interceptors>  
-            <interceptor name="myMusicInteceptor" class="myInterceptor.LoginInterceptor" />  
+            <interceptor name="OnlineInteceptor" class="myInterceptor.LoginInterceptor" />  
 		</interceptors>  
 		
 		<default-action-ref name="index"></default-action-ref>
@@ -15,8 +15,14 @@
 			<result>/jsp/index.jsp</result>
 		</action>
 		
+		<action name="admin" class="myAction.admin" method="showUsers">
+			<result name="success">/jsp/admin.jsp</result>
+		</action>
+		
+		
 		<action name="login" class="myAction.login" method="verify">
 			<result name="success">/jsp/index.jsp</result>
+			<result name="admin" type="redirectAction">admin</result>
 			<result name="login">/jsp/index.jsp</result>
 		</action>
 		
@@ -57,7 +63,17 @@
 			<result name="login">
 				/jsp/index.jsp
 			</result>
-			<interceptor-ref name="myMusicInteceptor"></interceptor-ref>    
+			<interceptor-ref name="OnlineInteceptor"></interceptor-ref>    
+		</action>
+		
+		<action name="ShowAlbum" class="myAction.ShowAlbum">
+			<result name="success">
+				/jsp/ShowAlbum.jsp
+			</result>
+			<result name="login">
+				/jsp/index.jsp
+			</result>
+			<interceptor-ref name="OnlineInteceptor"></interceptor-ref>    
 		</action>
 	</package>
 </struts>

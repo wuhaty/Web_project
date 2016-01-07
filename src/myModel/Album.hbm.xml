@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-1-1 14:39:37 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="myModel.Album" table="album" catalog="acciomusic" optimistic-lock="version">
+        <id name="albumId" type="int">
+            <column name="AlbumId" />
+            <generator class="assigned" />
+        </id>
+        
+        <set name="users" table="purchasehistory" lazy="false">
+         	<key column="AlbumId"/>
+         	<many-to-many class="myModel.User" column="UserId"/>
+     	</set>
+        
+        <property name="albumName" type="string">
+            <column name="AlbumName" not-null="true" />
+        </property>
+        <property name="singerId" type="int">
+            <column name="SingerId" not-null="true" />
+        </property>
+        <property name="albumCover" type="string">
+            <column name="AlbumCover" />
+        </property>
+        <property name="albumInfo" type="string">
+            <column name="AlbumInfo" />
+        </property>
+
+    </class>
+</hibernate-mapping>
