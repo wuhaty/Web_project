@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+		<package name="default" namespace="/" extends="struts-default">
+		 <interceptors>  
+            <interceptor name="OnlineInteceptor" class="myInterceptor.LoginInterceptor" />  
+		</interceptors>  
+		
+		<default-action-ref name="index"></default-action-ref>
+		<action name="index">
+			<result>/jsp/index.jsp</result>
+		</action>
+		
+		<action name="admin" class="myAction.admin" method="showUsers">
+			<result name="success">/jsp/admin.jsp</result>
+		</action>
+		
+		
+		<action name="login" class="myAction.login" method="verify">
+			<result name="success">/jsp/index.jsp</result>
+			<result name="admin" type="redirectAction">admin</result>
+			<result name="login">/jsp/index.jsp</result>
+		</action>
+		
+		<action name="logout" class="myAction.login" method="logout">
+			<result name="success">
+				/jsp/index.jsp
+			</result>
+		</action>
+		
+		<action name="modifyPwd" class="myAction.login" method="modifyPwd">
+			<result name="success">
+				/jsp/index.jsp
+			</result>
+		</action>
+		
+		<action name="freeze" class="myAction.login" method="freeze">
+			<result name="success" type="redirectAction">
+				<param name="actionName">logout</param>  
+			</result>
+		</action>
+		
+		<action name="regist" class="myAction.regist" >
+			<result name="success" type="redirectAction">
+				<param name="actionName">login</param>  
+       	 		<param name="userName">${userName}</param>  
+       	 		<param name="userPwd">${userPwd}</param>  
+			</result>
+			
+			<result name="input">
+				/jsp/index.jsp
+			</result>
+		</action>
+		
+		<action name="myMusic" class="myAction.myMusic">
+			<result name="success">
+				/jsp/myAlbum.jsp
+			</result>
+			<result name="login">
+				/jsp/index.jsp
+			</result>
+			<interceptor-ref name="OnlineInteceptor"></interceptor-ref>    
+		</action>
+		
+		<action name="ShowAlbum" class="myAction.ShowAlbum">
+			<result name="success">
+				/jsp/ShowAlbum.jsp
+			</result>
+			<result name="login">
+				/jsp/index.jsp
+			</result>
+			<interceptor-ref name="OnlineInteceptor"></interceptor-ref>    
+		</action>
+	</package>
+</struts>

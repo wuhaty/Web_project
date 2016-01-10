@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-1-1 14:39:37 by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="myModel.Song" table="song" catalog="acciomusic" optimistic-lock="version">
+        <id name="songId" type="java.lang.Integer">
+            <column name="SongId" />
+            <generator class="identity" />
+        </id>
+        <property name="songName" type="string">
+            <column name="SongName" not-null="true" />
+        </property>
+        <property name="singerId" type="int">
+            <column name="SingerId" not-null="true" />
+        </property>
+        <property name="songUrl" type="string">
+            <column name="SongURL" not-null="true" />
+        </property>
+        <property name="albumId" type="int">
+            <column name="AlbumId" not-null="true" />
+        </property>
+        <property name="lyric" type="string">
+            <column name="Lyric" />
+        </property>
+    </class>
+</hibernate-mapping>

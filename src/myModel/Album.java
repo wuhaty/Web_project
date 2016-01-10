@@ -15,7 +15,6 @@ public class Album implements java.io.Serializable {
 	private String albumInfo;
 	private Set users;
 	
-	
 	public Album() {
 	}
 

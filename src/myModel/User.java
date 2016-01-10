@@ -16,6 +16,7 @@ public class User implements java.io.Serializable {
 	private String userPwd;
 	private byte isAdmin;
 	private Set albums;
+	private int version;
 	
 	public User() {
 		
@@ -63,6 +64,14 @@ public class User implements java.io.Serializable {
 	public void setisAdmin(byte isAdmin) {
 		this.isAdmin = isAdmin;
 	}
+	
+	public int getVersion() {
+	    return version;
+	}
+	public void setVersion(int version) {
+	    this.version = version;
+	}
+
 	
 
 }

@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.StaleObjectStateException;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
@@ -133,9 +134,41 @@ public class AlbumHome {
 		int userId=userDAO.findByUserName(userName).getUserId();
 				
 		List<Album> albums = sessionFactory.getCurrentSession().createCriteria(Album.class)
-							.createAlias("users","users").add(Restrictions.eq("users.userId",userId))
+							.createAlias("users","user")
+							.add(Restrictions.eq("user.userId",userId))
 	                         .list();
 		sessionFactory.getCurrentSession().getTransaction().commit();
 		return albums;
+	}
+	
+	public void updateAlbum(Album persistentInstance) {
+		try {
+		sessionFactory.getCurrentSession().beginTransaction();
+		Album album=findByExample(persistentInstance).get(0);
+		sessionFactory.getCurrentSession().lock(album, LockMode.PESSIMISTIC_WRITE);
+		sessionFactory.getCurrentSession().merge(persistentInstance);
+		sessionFactory.getCurrentSession().getTransaction().commit();
+		
+		}catch(StaleObjectStateException e){  
+			if (sessionFactory.getCurrentSession().getTransaction() != null) {  
+				sessionFactory.getCurrentSession().getTransaction().rollback();  
+			}  
+			e.printStackTrace();  
+			System.out.println("本事务被撤销，请重新开始删除事物");  
+		}  
+	}
+	
+	public void BatchInsertAlbum(List<Album> AlbumStorage) {
+		sessionFactory.getCurrentSession().beginTransaction();
+		
+		for ( int i=0; i<AlbumStorage.size(); i++ ) {
+		    Album newalbum = AlbumStorage.get(i);
+		    sessionFactory.getCurrentSession().save(newalbum);
+			if( i % 50 == 0 ) {
+				sessionFactory.getCurrentSession().flush();
+		        sessionFactory.getCurrentSession().clear();
+		    }
+		}
+		sessionFactory.getCurrentSession().getTransaction().commit();
 	}
 }
